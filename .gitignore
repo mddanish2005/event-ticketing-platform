@@ -1,0 +1,61 @@
+############################
+# Maven / Java
+############################
+/target/
+
+############################
+# Node / Frontend
+############################
+node_modules/
+dist/
+
+############################
+# Logs
+############################
+*.log
+
+############################
+# Environment / Secrets
+############################
+.env
+.env.local
+.env.*.local
+
+############################
+# IntelliJ IDEA
+############################
+.idea/
+*.iws
+*.iml
+*.ipr
+
+############################
+# VS Code
+############################
+.vscode/
+
+############################
+# Spring Tool Suite (STS)
+############################
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+############################
+# NetBeans
+############################
+/nbproject/private/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+build/
+
+############################
+# OS files
+############################
+.DS_Store
+Thumbs.db

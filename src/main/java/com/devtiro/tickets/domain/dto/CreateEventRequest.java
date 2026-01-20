@@ -3,6 +3,7 @@ package com.devtiro.tickets.domain.dto;
 import com.devtiro.tickets.domain.EventStatusEnum;
 import com.devtiro.tickets.domain.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CreateEventRequest {
 
     private String name;
@@ -23,6 +25,7 @@ public class CreateEventRequest {
     private LocalDateTime salesEndDate;
     private String description;
     private EventStatusEnum status;
+    private User organizer;
     private List<CreateTicketTypeRequest> ticketTypes = new ArrayList<>();
 
 

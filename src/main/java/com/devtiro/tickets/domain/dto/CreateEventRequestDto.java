@@ -7,11 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateEventRequestDTO {
+public class CreateEventRequestDto {
     private String name;
        private LocalDateTime start;
        private LocalDateTime end;
@@ -21,5 +23,6 @@ public class CreateEventRequestDTO {
        private String description;
        private EventStatusEnum status;
        private User organizer;
+       private List<CreateTicketTypeRequestDto> ticketTypes = new ArrayList<>();
 
 }

@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface EventService {
 
-    Event createEvent(CreateEventRequest event, UUID organiserId);
+    Event createEvent(UUID organiserId,CreateEventRequest event);
+
 
 }

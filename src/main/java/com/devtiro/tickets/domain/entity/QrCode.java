@@ -28,7 +28,7 @@ public class QrCode {
     @Column(name = "status", nullable = false)
     private QrCodeStatusEnum status;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "value", nullable = false)
     private String value;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -28,7 +28,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "start_time")
@@ -38,16 +38,13 @@ public class Event {
     private LocalDateTime end;
 
     @Column(name = "venue", nullable = false)
-     private String venue;
+    private String venue;
 
     @Column(name = "sales_start")
-    private LocalDateTime salesStartDate;
+    private LocalDateTime salesStart;
 
     @Column(name = "sales_end")
-    private LocalDateTime salesEndDate;
-
-    @Column(name = "description")
-    private String description;
+    private LocalDateTime salesEnd;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -56,8 +53,8 @@ public class Event {
     //
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organiser_id")
-    private User organiser;
+    @JoinColumn(name = "organizer_id")
+    private User organizer;
 
 
     @ManyToMany(mappedBy = "attendingEvents")
@@ -68,7 +65,7 @@ public class Event {
     private List<User> staff = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "event" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<TicketType> ticketTypes = new ArrayList<>();
 
 
@@ -76,12 +73,12 @@ public class Event {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return Objects.equals(id, event.id) && Objects.equals(name, event.name) && Objects.equals(start, event.start) && Objects.equals(end, event.end) && Objects.equals(venue, event.venue) && Objects.equals(salesStartDate, event.salesStartDate) && Objects.equals(salesEndDate, event.salesEndDate) && Objects.equals(description, event.description) && status == event.status && Objects.equals(createdAt, event.createdAt) && Objects.equals(updatedAt, event.updatedAt);
+        return Objects.equals(id, event.id) && Objects.equals(name, event.name) && Objects.equals(start, event.start) && Objects.equals(end, event.end) && Objects.equals(venue, event.venue) && Objects.equals(salesStart, event.salesStart) && Objects.equals(salesEnd, event.salesEnd) && status == event.status && Objects.equals(createdAt, event.createdAt) && Objects.equals(updatedAt, event.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, start, end, venue, salesStartDate, salesEndDate, description, status, createdAt, updatedAt);
+        return Objects.hash(id, name, start, end, venue, salesStart, salesEnd, status, createdAt, updatedAt);
     }
 
     //

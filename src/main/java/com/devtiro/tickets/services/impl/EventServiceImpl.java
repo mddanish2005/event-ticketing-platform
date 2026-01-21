@@ -10,6 +10,9 @@ import com.devtiro.tickets.repository.EventRepository;
 import com.devtiro.tickets.repository.UserRepository;
 import com.devtiro.tickets.services.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,13 +28,14 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     
     @Override
-    public Event createEvent(UUID organiserId, CreateEventRequest createEventRequest) {
-        User organiser = userRepository.findById(organiserId).orElseThrow(
+    public Event createEvent(UUID organizerId, CreateEventRequest createEventRequest) {
+        User organizer = userRepository.findById(organizerId).orElseThrow(
                 () -> new UserNotFoundException(
-                        String.format("User with ID '%s' not found",organiserId)
+                        String.format("User with ID '%s' not found",organizerId)
                 )
         );
 
+        Event event = new Event();
 
         List<TicketType> ticketTypes = new ArrayList<>();
         List< CreateTicketTypeRequest> ticketTypeRequests = createEventRequest.getTicketTypes();
@@ -39,24 +43,33 @@ public class EventServiceImpl implements EventService {
             TicketType ticketType = new TicketType();
             ticketType.setName(ticketTypeRequest.getName());
             ticketType.setPrice(ticketTypeRequest.getPrice());
+            ticketType.setEvent(event);
             ticketType.setTotalAvailable(ticketTypeRequest.getTotalAvailable());
             ticketType.setDescription(ticketTypeRequest.getDescription());
             ticketTypes.add(ticketType);
         }
 
-        Event event = new Event();
+
         event.setName(createEventRequest.getName());
         event.setStart(createEventRequest.getStart());
+        event.setEnd(createEventRequest.getEnd());
         event.setVenue(createEventRequest.getVenue());
-        event.setSalesStartDate(createEventRequest.getSalesStartDate());
-        event.setSalesEndDate(createEventRequest.getSalesEndDate());
-        event.setDescription(createEventRequest.getDescription());
+        event.setSalesStart(createEventRequest.getSalesStart());
+        event.setSalesEnd(createEventRequest.getSalesEnd());
         event.setStatus(createEventRequest.getStatus());
-        event.setOrganiser(organiser);
+        event.setOrganizer(organizer);
         event.setTicketTypes(ticketTypes);
 
         return eventRepository.save(event);
 
 
     }
+
+    @Override
+    public Page<Event> listEventsForOrganizer(UUID organizerId, Pageable pageable) {
+
+        return eventRepository.findByOrganizerId(organizerId, pageable);
+
+    }
+
 }

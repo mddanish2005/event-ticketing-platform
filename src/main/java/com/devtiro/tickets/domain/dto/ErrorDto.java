@@ -1,19 +1,13 @@
 package com.devtiro.tickets.domain.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class UserResponseDto {
+public class ErrorDto {
 
-    private UUID id;
-    private String name;
-
+  private String error;
 }

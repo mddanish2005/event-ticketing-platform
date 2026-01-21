@@ -44,8 +44,8 @@ public class EventMapper {
                    .venue(dto.getVenue())
                    .start(dto.getStart())
                    .end(dto.getEnd())
-                   .salesStartDate(dto.getSalesStartDate())
-                   .salesEndDate(dto.getSalesEndDate())
+                   .salesStart(dto.getSalesStart())
+                   .salesEnd(dto.getSalesEnd())
                    .status(dto.getStatus())
                    .ticketTypes(
                            toTicketTypeRequests(dto.getTicketTypes())
@@ -67,6 +67,8 @@ public class EventMapper {
                                       .price(ticketType.getPrice())
                                       .totalAvailable(ticketType.getTotalAvailable())
                                       .description(ticketType.getDescription())
+                                      .createdAt(ticketType.getCreatedAt())
+                                      .updatedAt(ticketType.getUpdatedAt())
                                       .build()
                       )
                       .collect(Collectors.toList());
@@ -80,14 +82,13 @@ public class EventMapper {
                 .start(event.getStart())
                 .end(event.getEnd())
                 .venue(event.getVenue())
-                .salesStartDate(event.getSalesStartDate())
-                .salesEndDate(event.getSalesEndDate())
-                .description(event.getDescription())
+                .salesStart(event.getSalesStart())
+                .salesEnd(event.getSalesEnd())
                 .status(event.getStatus())
                 .organizer(
                         UserResponseDto.builder()
-                                .id(event.getOrganiser().getId())
-                                .name(event.getOrganiser().getName())
+                                .id(event.getOrganizer().getId())
+                                .name(event.getOrganizer().getName())
                                 .build()
                 )
                 .ticketTypes(
@@ -100,5 +101,43 @@ public class EventMapper {
 
 
        }
+
+    public static List<ListEventTicketTypeResponseDto> toListEventTicketTypeResponseDto(
+            List<TicketType> ticketTypes
+    ) {
+        if (ticketTypes == null) {
+            return List.of();
+        }
+
+        return ticketTypes.stream()
+                .map(ticketType ->
+                        ListEventTicketTypeResponseDto.builder()
+                                .name(ticketType.getName())
+                                .price(ticketType.getPrice())
+                                .totalAvailable(ticketType.getTotalAvailable())
+                                .description(ticketType.getDescription())
+                                .build()
+                )
+                .collect(Collectors.toList());
+    }
+
+    public static ListEventResponseDto toListEventResponseDto(Event event) {
+        return ListEventResponseDto.builder()
+                .id(event.getId())
+                .name(event.getName())
+                .venue(event.getVenue())
+                .start(event.getStart())
+                .end(event.getEnd())
+                .salesStart(event.getSalesStart())
+                .salesEnd(event.getSalesEnd())
+                .status(event.getStatus())
+                .ticketTypes(
+                       EventMapper.toListEventTicketTypeResponseDto(event.getTicketTypes())
+                )
+                .createdAt(event.getCreatedAt())
+                .updatedAt(event.getUpdatedAt())
+                .build();
+    }
+
 
 }

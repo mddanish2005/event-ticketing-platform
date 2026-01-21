@@ -32,8 +32,8 @@ public class User {
 
     //
 
-    @OneToMany(mappedBy = "organiser",cascade = CascadeType.ALL)
-    private List<Event> organisingEvents = new ArrayList<>();
+    @OneToMany(mappedBy = "organizer",cascade = CascadeType.ALL)
+    private List<Event> organizingEvents = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

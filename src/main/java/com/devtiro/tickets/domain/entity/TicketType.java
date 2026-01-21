@@ -61,7 +61,7 @@ public class TicketType {
         return Objects.hash(id, name, price, totalAvailable, description, createdAt, updatedAt);
     }
 
-    @CreatedDate
+     @CreatedDate
      @Column(name = "created_at", updatable = false, nullable = false)
      private LocalDateTime createdAt;
 

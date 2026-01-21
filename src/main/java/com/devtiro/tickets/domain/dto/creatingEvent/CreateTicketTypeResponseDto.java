@@ -1,4 +1,4 @@
-package com.devtiro.tickets.domain.dto;
+package com.devtiro.tickets.domain.dto.creatingEvent;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -46,7 +46,7 @@ public class TicketType {
     private Event event;
 
 
-    @OneToMany(mappedBy = "ticketType", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ticketType", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Ticket> tickets = new ArrayList<>();
 
     @Override

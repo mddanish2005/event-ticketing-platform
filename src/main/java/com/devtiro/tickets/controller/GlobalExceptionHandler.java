@@ -2,6 +2,10 @@ package com.devtiro.tickets.controller;
 
 
 import com.devtiro.tickets.domain.dto.ErrorDto;
+import com.devtiro.tickets.domain.entity.TicketType;
+import com.devtiro.tickets.exception.EventNotFoundException;
+import com.devtiro.tickets.exception.EventUpdateException;
+import com.devtiro.tickets.exception.TicketTypeNotFoundException;
 import com.devtiro.tickets.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
@@ -19,7 +23,7 @@ import java.util.List;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
+//
 //    @ExceptionHandler(ConstraintViolationException.class)
 //    public ResponseEntity<ErrorDto> handleConstraintViolation(
 //        ConstraintViolationException ex
@@ -39,6 +43,29 @@ public class GlobalExceptionHandler {
 //      return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
 //    }
 
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleEventNotFoundException(EventNotFoundException ex) {
+      log.error("Caught EventNotFoundException", ex);
+      ErrorDto errorDto = new ErrorDto();
+      errorDto.setError("Event not found");
+      return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TicketTypeNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleTicketTypeNotFoundException(TicketTypeNotFoundException ex) {
+      log.error("Caught TicketTypeNotFoundException", ex);
+      ErrorDto errorDto = new ErrorDto();
+      errorDto.setError("Ticket Type not found");
+      return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EventUpdateException.class)
+    public ResponseEntity<ErrorDto> handleEventUpdateException(EventUpdateException ex) {
+      log.error("Caught EventUpdateException", ex);
+      ErrorDto errorDto = new ErrorDto();
+      errorDto.setError("Unable to update Event");
+      return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorDto> handleUserNotFoundException(UserNotFoundException ex) {
@@ -74,4 +101,5 @@ public class GlobalExceptionHandler {
       errorDto.setError("An unknown error occurred");
       return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }

@@ -1,4 +1,4 @@
-package com.devtiro.tickets.domain.dto;
+package com.devtiro.tickets.domain.dto.listingEvents;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Builder
 @Data

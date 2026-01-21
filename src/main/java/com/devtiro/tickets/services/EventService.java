@@ -1,20 +1,23 @@
 package com.devtiro.tickets.services;
 
 
-import com.devtiro.tickets.domain.dto.CreateEventRequest;
+import com.devtiro.tickets.domain.requests.CreateEventRequest;
 import com.devtiro.tickets.domain.entity.Event;
+import com.devtiro.tickets.domain.requests.UpdateEventRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public interface EventService {
 
     Event createEvent(UUID organiserId,CreateEventRequest event);
-    Page<Event> listEventsForOrganizer(UUID organiserId, Pageable pageable);
+    Page<Event> listEventsForOrganizer(UUID organizerId, Pageable pageable);
+    Optional<Event> getEventForOrganizer(UUID organizerId, UUID eventId);
+    Event updateEventForOrganizer(UUID organizerId, UUID eventId, UpdateEventRequest updateEventRequest);
 
 
 }

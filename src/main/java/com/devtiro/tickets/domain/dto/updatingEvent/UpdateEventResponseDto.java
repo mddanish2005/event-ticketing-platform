@@ -1,6 +1,8 @@
-package com.devtiro.tickets.domain.dto;
+package com.devtiro.tickets.domain.dto.updatingEvent;
 
 import com.devtiro.tickets.domain.EventStatusEnum;
+import com.devtiro.tickets.domain.dto.UserResponseDto;
+import com.devtiro.tickets.domain.dto.creatingEvent.CreateTicketTypeResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,12 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Builder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ListEventResponseDto {
-
+@AllArgsConstructor
+@Builder
+public class UpdateEventResponseDto {
     private UUID id;
     private String name;
     private LocalDateTime start;
@@ -25,9 +26,9 @@ public class ListEventResponseDto {
     private LocalDateTime salesStart;
     private LocalDateTime salesEnd;
     private EventStatusEnum status;
-    private List<ListEventTicketTypeResponseDto> ticketTypes = new ArrayList<>();
+    private UserResponseDto organizer;
+    private List<UpdateTicketTypeResponseDto> ticketTypes = new ArrayList<>();
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
 
 }

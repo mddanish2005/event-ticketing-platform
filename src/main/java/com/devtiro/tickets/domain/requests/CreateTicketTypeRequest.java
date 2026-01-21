@@ -1,6 +1,5 @@
-package com.devtiro.tickets.domain.dto;
+package com.devtiro.tickets.domain.requests;
 
-import com.devtiro.tickets.domain.entity.Event;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

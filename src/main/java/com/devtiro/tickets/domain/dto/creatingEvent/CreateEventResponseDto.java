@@ -1,7 +1,7 @@
-package com.devtiro.tickets.domain.dto;
+package com.devtiro.tickets.domain.dto.creatingEvent;
 
 import com.devtiro.tickets.domain.EventStatusEnum;
-import com.devtiro.tickets.domain.entity.User;
+import com.devtiro.tickets.domain.dto.UserResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

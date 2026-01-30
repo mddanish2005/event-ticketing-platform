@@ -1,6 +1,5 @@
 package com.devtiro.tickets.domain.entity;
 
-
 import com.devtiro.tickets.domain.enums.TicketValidationMethodEnum;
 import com.devtiro.tickets.domain.enums.TicketValidationStatusEnum;
 import jakarta.persistence.*;
@@ -31,7 +30,8 @@ public class TicketValidation {
     @Enumerated(EnumType.STRING)
     private TicketValidationStatusEnum status;
 
-    @Column(name="validation_method",nullable = false)
+    @Column(name = "validation_method", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TicketValidationMethodEnum validationMethod;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,9 +40,11 @@ public class TicketValidation {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass())
+            return false;
         TicketValidation that = (TicketValidation) o;
-        return Objects.equals(id, that.id) && status == that.status && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+        return Objects.equals(id, that.id) && status == that.status && Objects.equals(createdAt, that.createdAt)
+                && Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
@@ -57,8 +59,5 @@ public class TicketValidation {
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-
-
 
 }

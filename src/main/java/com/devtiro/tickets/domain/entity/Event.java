@@ -49,9 +49,7 @@ public class Event {
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private EventStatusEnum status;
-
     //
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizer_id")
     private User organizer;

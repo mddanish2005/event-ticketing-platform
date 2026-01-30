@@ -7,8 +7,11 @@ import com.devtiro.tickets.domain.dto.creatingEvent.CreateTicketTypeRequestDto;
 import com.devtiro.tickets.domain.dto.creatingEvent.CreateTicketTypeResponseDto;
 import com.devtiro.tickets.domain.dto.gettingEvent.GetEventDetailsResponseDto;
 import com.devtiro.tickets.domain.dto.gettingEvent.GetEventTicketTypeResponseDto;
+import com.devtiro.tickets.domain.dto.gettingEvent.GetPublishedEventDetailsResponseDto;
+import com.devtiro.tickets.domain.dto.gettingEvent.GetPublishedEventTicketTypeResponseDto;
 import com.devtiro.tickets.domain.dto.listingEvents.ListEventResponseDto;
 import com.devtiro.tickets.domain.dto.listingEvents.ListEventTicketTypeResponseDto;
+import com.devtiro.tickets.domain.dto.listingEvents.ListPublishedEventsResponseDto;
 import com.devtiro.tickets.domain.dto.updatingEvent.UpdateEventRequestDto;
 import com.devtiro.tickets.domain.dto.updatingEvent.UpdateEventResponseDto;
 import com.devtiro.tickets.domain.dto.updatingEvent.UpdateTicketTypeRequestDto;
@@ -196,29 +199,29 @@ public class EventMapper {
     }
 
 
-public static UpdateEventRequest toUpdateEventRequest(UpdateEventRequestDto dto) {
-       if (dto == null) return null;
+    public static UpdateEventRequest toUpdateEventRequest(UpdateEventRequestDto dto) {
+        if (dto == null) return null;
 
-       UpdateEventRequest req = new UpdateEventRequest();
-       req.setId(dto.getId());
-       req.setName(dto.getName());
-       req.setStart(dto.getStart());
-       req.setEnd(dto.getEnd());
-       req.setVenue(dto.getVenue());
-       req.setSalesStart(dto.getSalesStart());
-       req.setSalesEnd(dto.getSalesEnd());
-       req.setStatus(dto.getStatus());
-       req.setOrganizer(dto.getOrganizer());
+        UpdateEventRequest req = new UpdateEventRequest();
+        req.setId(dto.getId());
+        req.setName(dto.getName());
+        req.setStart(dto.getStart());
+        req.setEnd(dto.getEnd());
+        req.setVenue(dto.getVenue());
+        req.setSalesStart(dto.getSalesStart());
+        req.setSalesEnd(dto.getSalesEnd());
+        req.setStatus(dto.getStatus());
+        req.setOrganizer(dto.getOrganizer());
 
-       req.setTicketTypes(
-               dto.getTicketTypes()
-                  .stream()
-                  .map(EventMapper::toUpdateTicketTypeRequest)
-                  .toList()
-       );
+        req.setTicketTypes(
+                dto.getTicketTypes()
+                        .stream()
+                        .map(EventMapper::toUpdateTicketTypeRequest)
+                        .toList()
+        );
 
-       return req;
-   }
+        return req;
+    }
 
     private static UpdateTicketTypeRequest toUpdateTicketTypeRequest(UpdateTicketTypeRequestDto dto) {
         UpdateTicketTypeRequest req = new UpdateTicketTypeRequest();
@@ -229,6 +232,7 @@ public static UpdateEventRequest toUpdateEventRequest(UpdateEventRequestDto dto)
         req.setDescription(dto.getDescription());
         return req;
     }
+
     public static UpdateEventResponseDto toUpdateEventResponseDto(Event event) {
         return UpdateEventResponseDto.builder()
                 .id(event.getId())
@@ -240,16 +244,16 @@ public static UpdateEventRequest toUpdateEventRequest(UpdateEventRequestDto dto)
                 .salesEnd(event.getSalesEnd())
                 .status(event.getStatus())
                 .organizer(
-                    UserResponseDto.builder()
-                        .id(event.getOrganizer().getId())
-                        .name(event.getOrganizer().getName())
-                        .build()
+                        UserResponseDto.builder()
+                                .id(event.getOrganizer().getId())
+                                .name(event.getOrganizer().getName())
+                                .build()
                 )
                 .ticketTypes(
-                    event.getTicketTypes()
-                         .stream()
-                         .map(EventMapper::toUpdateTicketTypeResponseDto)
-                         .toList()
+                        event.getTicketTypes()
+                                .stream()
+                                .map(EventMapper::toUpdateTicketTypeResponseDto)
+                                .toList()
                 )
                 .createdAt(event.getCreatedAt())
                 .updatedAt(event.getUpdatedAt())
@@ -268,6 +272,44 @@ public static UpdateEventRequest toUpdateEventRequest(UpdateEventRequestDto dto)
                 .build();
     }
 
+    public static ListPublishedEventsResponseDto toListPublishedEventsResponseDto(Event event) {
+        return ListPublishedEventsResponseDto.builder()
+                .name(event.getName())
+                .id(event.getId())
+                .start(event.getStart())
+                .end(event.getEnd())
+                .venue(event.getVenue())
+                .build();
+    }
+
+    public static GetPublishedEventDetailsResponseDto getPublishedEventDetailsResponseDto(Event event) {
+        if (event == null) {
+            return null;
+        }
+
+        return GetPublishedEventDetailsResponseDto.builder()
+                .id(event.getId())
+                .name(event.getName())
+                .start(event.getStart())
+                .end(event.getEnd())
+                .venue(event.getVenue())
+                .ticketTypes(
+                        event.getTicketTypes()
+                                .stream()
+                                .map(EventMapper::getPublishedEventTicketTypeResponseDto)
+                                .toList()
+                )
+                .build();
 
 
+    }
+
+    public static GetPublishedEventTicketTypeResponseDto getPublishedEventTicketTypeResponseDto(TicketType ticketType) {
+        return GetPublishedEventTicketTypeResponseDto.builder()
+                .name(ticketType.getName())
+                .id(ticketType.getId())
+                .price(ticketType.getPrice())
+                .description(ticketType.getDescription())
+                .build();
+    }
 }

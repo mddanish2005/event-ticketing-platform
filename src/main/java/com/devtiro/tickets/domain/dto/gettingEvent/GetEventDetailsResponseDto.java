@@ -1,6 +1,6 @@
 package com.devtiro.tickets.domain.dto.gettingEvent;
 
-import com.devtiro.tickets.domain.EventStatusEnum;
+import com.devtiro.tickets.domain.enums.EventStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

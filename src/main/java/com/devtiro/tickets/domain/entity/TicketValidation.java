@@ -1,8 +1,8 @@
 package com.devtiro.tickets.domain.entity;
 
 
-import com.devtiro.tickets.domain.TicketValidationMethodEnum;
-import com.devtiro.tickets.domain.TicketValidationStatusEnum;
+import com.devtiro.tickets.domain.enums.TicketValidationMethodEnum;
+import com.devtiro.tickets.domain.enums.TicketValidationStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,7 +1,7 @@
 package com.devtiro.tickets.domain.entity;
 
-import com.devtiro.tickets.domain.TicketStatusEnum;
-import com.devtiro.tickets.domain.TicketValidationStatusEnum;
+import com.devtiro.tickets.domain.enums.TicketStatusEnum;
+import com.devtiro.tickets.domain.enums.TicketValidationStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -27,6 +27,7 @@ public class Ticket {
 
     @Id
     @Column(name ="id", nullable = false,updatable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "status", nullable = false)

@@ -1,5 +1,6 @@
 package com.devtiro.tickets.services.impl;
 
+import com.devtiro.tickets.domain.enums.EventStatusEnum;
 import com.devtiro.tickets.domain.requests.CreateEventRequest;
 import com.devtiro.tickets.domain.requests.CreateTicketTypeRequest;
 import com.devtiro.tickets.domain.entity.Event;
@@ -31,6 +32,7 @@ public class EventServiceImpl implements EventService {
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
 
+    @Transactional
     @Override
     public Event createEvent(UUID organizerId, CreateEventRequest createEventRequest) {
         User organizer = userRepository.findById(organizerId).orElseThrow(
@@ -145,5 +147,29 @@ public class EventServiceImpl implements EventService {
 
 
     }
+
+    @Transactional
+    @Override
+    public void deleteEventForOrganizer(UUID organizerId, UUID id) {
+
+        getEventForOrganizer(organizerId, id).ifPresent(eventRepository::delete);
+
+    }
+
+    @Override
+    public Page<Event> listPublishedEvents(Pageable pageable) {
+       return eventRepository.findByStatus(EventStatusEnum.PUBLISHED,pageable);
+    }
+
+    @Override
+    public Page<Event> searchPublishedEvents(String query, Pageable pageable) {
+        return  eventRepository.searchEvents(query, pageable);
+    }
+
+    @Override
+    public Optional<Event> getPublishedEvent(UUID id) {
+        return eventRepository.findByIdAndStatus(id,EventStatusEnum.PUBLISHED);
+    }
+
 
 }

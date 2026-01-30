@@ -1,4 +1,4 @@
-package com.devtiro.tickets.domain;
+package com.devtiro.tickets.domain.enums;
 
 public enum TicketStatusEnum {
     PURCHASED, CANCELLED
